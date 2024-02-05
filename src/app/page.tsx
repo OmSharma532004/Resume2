@@ -2,6 +2,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Navbar from "@/components/navbar"
 import img from "@/components/i.jpeg"
+import p1 from "@/components/p1.png"
+import p2 from "@/components/p2.png"
 import Image from 'next/image'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -14,10 +16,13 @@ import { CiFacebook } from "react-icons/ci";
 import { FaGithub } from "react-icons/fa";
 import { Progress } from "@/components/ui/progress"
 import { useEffect, useState } from 'react';
+import { FaGraduationCap } from "react-icons/fa";
+import Link from "next/link"
 
 
 interface CircularProgressProps {
   value: number;
+  
 }
 
 const CircularProgress: React.FC<CircularProgressProps> = ({ value }) => {
@@ -68,11 +73,24 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ value }) => {
 
 
 
+
 export default function Home() {
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const[Value,setValue]=useState(1);
   return (
     <>
-    <div className=" flex flex-col home justify-center w-screen min-h-screen items-center  text-white">
-      <div className=" flex w-[80%] relative flex-row shadow-lg shadow-white bg-neutral-900 h-[80%]">
+    <div className=" flex flex-col home flex-wrap justify-center w-screen min-h-screen items-center  text-white">
+      <div className=" flex w-[80%]  relative flex-row shadow-lg shadow-white bg-neutral-900 h-[80%]">
 
    
      <div className=" h-[100%] border-r-2 p-2  w-[7%] border-gray-600">
@@ -84,16 +102,22 @@ export default function Home() {
 
        <div className=" flex  h-[80%] gap-[50px]  flex-col  justify-center items-center  ">
     
-        <div >
-        <AiOutlineUser style={{fontSize:"2rem"}} />
+        <div onClick={()=>{
+          setValue(1)
+        }} >
+       <AiOutlineUser style={{fontSize:"2rem"}} />
         
             
         </div>
-        <div  className="">
-        <LuMessageSquare style={{fontSize:"2rem"}} />
+        <div  className="" onClick={()=>{
+          setValue(2)
+        }}>
+       <LuMessageSquare style={{fontSize:"2rem"}} />
         </div>
-        <div  className="">
-        <FaGlasses style={{fontSize:"2rem"}} />
+        <div  className="" onClick={()=>{
+          setValue(3)
+        }}>
+       <FaGlasses style={{fontSize:"2rem"}} />
         </div>
        </div>
        <div>
@@ -121,7 +145,10 @@ export default function Home() {
 
      </div>
      </div>
-     <div className=" flex flex-col  p-4  w-[58%]  min-h-[100%]  items-center overflow-scroll">
+
+     {
+      Value==1?(<>
+      <div className=" flex flex-col  p-4  w-[58%]  min-h-[100%]  items-center overflow-scroll">
       <div className=" w-[80%] flex mt-3 flex-col justify-center items-center gap-[20px]  ">
         <h1 className="text-3xl font-bold  "> About Me</h1>
      
@@ -150,7 +177,89 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
 
 </div>
       </div>
+    
+      <div className="w-[90%] flex flex-col flex-wrap  justify-center items-center mt-[50px] gap-[20px] ">
+      <h1 className="text-2xl font-semibold flex justify-center items-center gap-2"> Education <FaGraduationCap /></h1>
+      <div className=" flex-row flex flex-wrap justify-around items-center w-[100%]">
+        <div className="w-[45%] border-2  p-2 border-gray-600 ">
+          <h1 className="  font-bold">JAYPEE INSTITUTE OF INFORMATION TEACHNOLOGY</h1>
+          <p>Btech-CSE</p>
+          <p>2022-2026</p>
+        </div>
+        <div className="w-[45%] border-2  p-2 border-gray-600 ">
+          <h1 className="  font-bold">AMITY INTERNATIONAL SCHOOL</h1>
+          <p>CLASS-10 :- 92%<br></br>CLASS-12 :- 92%</p>
+          <p>2007-2022</p>
+        </div>
+      </div>
+      </div>
      </div>
+      
+      </>):(
+      <>
+      {
+        Value==2?(<div className="flex flex-col  p-4  w-[58%]   min-h-[100%] justify-center  items-center overflow-scroll">
+          <div className=" min-h-[100%]">
+          <form className=" flex bg-white text-black flex-col items-center  shadow-lg shadow-white p-4 justify-around  min-h-[100%]">
+    <div className=" flex justify-center items-center gap-[20px]">
+    <label htmlFor="name">Name:</label>
+      <input className="text-black border-2 border-black " type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+
+    </div>
+     <div className=" flex justify-center items-center gap-[20px]"> 
+     <label htmlFor="email">Email:</label>
+      <input  className="text-black border-2 border-black "  type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+
+     </div>
+    <div className=" flex justify-center items-center gap-[20px]">
+    <label htmlFor="message">Message:</label>
+      <textarea  className="text-black border-2 border-black "  id="message" name="message" value={formData.message} onChange={handleChange} required></textarea>
+
+    </div>
+      <button className="border-2 p-2 rounded-lg border-black text-white bg-black" type="submit">Submit</button>
+    </form>
+          </div>
+          
+        </div>):(
+          <><div className="flex flex-col  p-4  w-[58%]  min-h-[100%]  items-center overflow-scroll">
+             <div className=" w-[80%] flex mt-3 flex-col justify-center items-center gap-[20px]  ">
+             <h1 className="text-3xl font-bold  "> My Projects</h1>
+             <div className="flex flex-col mt-4 justify-center items-center gap-[100px]">
+          {/* Replace the following with your actual project data */}
+        <Link href={"https://study-six-delta.vercel.app"}>  <div className={`project-photo shadow-lg shadow-white `}>
+          <Image
+      src={p1}
+      alt=""/>
+        <div className={`project-description `}>
+          <h1>Study</h1>
+              <p> ED Tech (Education Technology) 
+
+</p>
+            </div>
+          </div></Link>
+         <Link href={"https://ds-fincorp.vercel.app/"}> <div className={`project-photo shadow-lg shadow-white `}>
+          <Image
+      src={p2}
+      alt=""/>
+       <div className={`project-description `}>
+          <h1>DS Fincorp</h1>
+              <p> Banking Website
+</p>
+            </div>
+          </div></Link>
+        
+        </div>
+
+             </div>
+            </div></>
+        )
+      }
+      </>
+      )
+     }
+   
+
+
     
   
      

@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* styles.css */
+
+.project-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  filter: grayscale(100%);
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.project-description {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay color */
+  padding: 20px; /* Adjust padding as needed */
+  border-radius: 8px;
+}
+
+.project-photo:hover {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+}
+
+.project-photo:hover .project-description {
+  opacity: 0;
+}
+
 .home{
   background-image: url("../components/b5.jpg"); /* The image used */
   background-color: #cccccc; /* Used if the image is unavailable */
