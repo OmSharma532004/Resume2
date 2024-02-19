@@ -18,8 +18,9 @@ import { Progress } from "@/components/ui/progress"
 import { useEffect, useState } from 'react';
 import { FaGraduationCap } from "react-icons/fa";
 import Link from "next/link"
-
-
+import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+import myLocalPdf from "../components/resume3.png"
+import  toBuffer  from 'next/image';
 interface CircularProgressProps {
   value: number;
   
@@ -81,23 +82,91 @@ export default function Home() {
     email: '',
     message: '',
   });
+  
 
+ 
+  const handleDownload = async () => {
+    try {
+      // Assuming myLocalPdf is a StaticImageData from Next.js
+      const image = myLocalPdf;
+  
+      // Create a link element
+      const link = document.createElement('a');
+  
+      // Set the download attribute and create a URL for the image
+      link.download = 'my-image.jpg';
+      link.href = image.src;
+  
+      // Append the link to the document
+      document.body.appendChild(link);
+  
+      // Trigger a click on the link to start the download
+      link.click();
+  
+      // Remove the link from the document
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error handling download:', error);
+    }
+  };
+  
+  
+  
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Use your Email.js service details
+  
+
+    const serviceId = 'service_qxpozg8';
+    const templateId = 'template_pj0z1jn';
+    const userId = 'orUWiGgeMeTze51Qy'; 
+    console.log(formData);
+    const updatedFormData = {
+      ...formData,
+      user_email: formData.email,
+      user_name: formData.name
+    };
+
+    // Send email using Email.js
+    emailjs.send(serviceId, templateId, updatedFormData,userId)
+      .then((response: EmailJSResponseStatus) => {
+        console.log('Email sent successfully:', response);
+        // You can perform further actions here, like displaying a success message to the user
+        formData.email=" ";
+        formData.name=" ";
+        formData.message=" ";
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+        // Handle errors, e.g., display an error message to the user
+      });
+     
   };
 
   const[Value,setValue]=useState(1);
   return (
     <>
     <div className=" flex flex-col home flex-wrap justify-center w-screen min-h-screen items-center  text-white">
-      <div className=" flex w-[80%]  relative flex-row shadow-lg shadow-white bg-neutral-900 h-[80%]">
+      <div className=" flex w-[80%]  relative flex-row   shadow-lg shadow-white bg-neutral-900 h-[80%]">
 
    
-     <div className=" h-[100%] border-r-2 p-2  w-[7%] border-gray-600">
+     <div className=" h-[100%] border-r-2 p-2  min-w-[7%] border-gray-600">
      <nav className="h-[100%] ">
       <div className=" flex-col flex  h-[100%]  justify-start items-center">
        <div >
-       <h1 className=" text-3xl font-bold ml-2 mt-3" >OM</h1>
+       <h1 onClick={()=>{
+          setValue(1)
+        }} className=" text-3xl font-bold ml-2 mt-3" >OM</h1>
        </div>
 
        <div className=" flex  h-[80%] gap-[50px]  flex-col  justify-center items-center  ">
@@ -121,14 +190,14 @@ export default function Home() {
         </div>
        </div>
        <div>
-       <IoCloudDownloadOutline style={{fontSize:"2rem"}} />
+       <IoCloudDownloadOutline onClick={handleDownload} style={{fontSize:"2rem"}} />
        </div>
 
       </div>
     </nav>
      </div>
-     <div className="border-r-2 border-gray-600 bg-white text-black h-[100%]  flex flex-col items-center  justify-around  w-[35%]">
-     <div className=" overflow-hidden   shadow-black w-[300px] border-2 shadow-lg  h-[300px] bg-white  rounded-full ">
+     <div className="border-r-2 border-gray-600 bg-white  text-black h-[100%]  flex flex-col items-center  justify-around  min-w-[35%]">
+     <div className=" overflow-hidden   shadow-black max-w-[300px] border-2 shadow-lg  max-h-[300px] bg-white  rounded-full ">
       <Image
       src={img}
       alt=""/>
@@ -139,40 +208,41 @@ export default function Home() {
      </div>
     
      <div className=" flex flex-row justify-around w-[100%] items-center ">
-     <CiLinkedin  style={{fontSize:"2rem"}} />
-     <FaGithub style={{fontSize:"2rem"}} />
-     <CiFacebook style={{fontSize:"2rem"}} />
+     <Link href={"https://www.linkedin.com/in/om-sharma-a8a99527a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"}><CiLinkedin  style={{fontSize:"2rem"}} /></Link>
+     <Link href={"https://github.com/OmSharma532004"}><FaGithub style={{fontSize:"2rem"}} /></Link>
+     <Link href={"https://www.facebook.com/profile.php?id=100010600173223&mibextid=uzlsIk"}><CiFacebook style={{fontSize:"2rem"}} /></Link>
 
      </div>
      </div>
 
-     {
+    <div className=" flex flex-col  p-4  min-w-[58%]  min-h-[100%]   items-center overflow-scroll">
+    {
       Value==1?(<>
-      <div className=" flex flex-col  p-4  w-[58%]  min-h-[100%]  items-center overflow-scroll">
-      <div className=" w-[80%] flex mt-3 flex-col justify-center items-center gap-[20px]  ">
+      <div className="mx-auto w-[80%]">
+      <div className=" w-[100%] flex mt-3  flex-col justify-center items-center gap-[20px]  ">
         <h1 className="text-3xl font-bold  "> About Me</h1>
      
         <p>Experienced Web Developer adept in all stages of advanced web development. Knowledgeable in user interface, testing, and debugging racess ment of deit dies inauding misch. kilon. reinient
 Stack and Microsoft SQL Server. Able to effectively self-manage during independent projects, as well as collaborate in a team setting.</p>
       </div>
-      <div className="w-[90%] flex flex-col flex-wrap  justify-center items-center gap-[20px] " >
+      <div className="w-[100%]  flex flex-col flex-wrap  justify-center items-center gap-[10px] " >
       <h1 className="text-2xl font-semibold "> Skills</h1>
-<div className=" flex flex-row flex-wrap  justify-center items-center gap-[20px]">
-<div className=" flex flex-row justify-center items-center"><div>React</div><CircularProgress value={100} /></div>
-      <div className=" w-[160px] h-[100px] flex flex-row justify-center items-center"><div>Next</div><CircularProgress value={80} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>MongoDb</div><CircularProgress value={100} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>Express</div><CircularProgress value={100} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>Node</div><CircularProgress value={100} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>Tailwind</div><CircularProgress value={95} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>C++</div><CircularProgress value={80} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>SQL</div><CircularProgress value={90} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>AJAX</div><CircularProgress value={95} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>PHP</div><CircularProgress value={80} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>jQuery</div><CircularProgress value={90} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>Bootstrap</div><CircularProgress value={95} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>Python</div><CircularProgress value={80} /></div>
-      <div className="  w-[160px] h-[100px] flex flex-row justify-center items-center"><div>Git</div><CircularProgress value={90} /></div>
-      <div className="  w-[163px] h-[100px] flex flex-row justify-center items-center"><div>Javascript</div><CircularProgress value={90} /></div>
+<div className=" flex text-lg font-semibold flex-row flex-wrap  justify-center items-center gap-[10px] ">
+<div className=" w-[150px] bubble-btn  h-[100px] border-2 flex flex-row justify-center items-center"><div>React</div></div>
+      <div className=" w-[150px] bubble-btn  h-[100px] border-2 flex flex-row justify-center items-center"><div>Next</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>MongoDb</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>Express</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>Node</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>Tailwind</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>C++</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>SQL</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>AJAX</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>PHP</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>jQuery</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>Bootstrap</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>Python</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>Git</div></div>
+      <div className="  w-[150px] bubble-btn h-[100px] border-2 flex flex-row justify-center items-center"><div>Javascript</div></div>
 
 
 </div>
@@ -198,9 +268,9 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
       </>):(
       <>
       {
-        Value==2?(<div className="flex flex-col  p-4  w-[58%]   min-h-[100%] justify-center  items-center overflow-scroll">
-          <div className=" min-h-[100%]">
-          <form className=" flex bg-white text-black flex-col items-center  shadow-lg shadow-white p-4 justify-around  min-h-[100%]">
+        Value==2?(<div className=" min-h-[100%] ">
+          <div className=" flex min-h-[100%]  items-center justify-center">
+          <form onSubmit={handleSubmit} className=" flex bg-white text-black flex-col items-center  shadow-lg  p-4 justify-around gap-[20px]  min-h-[100%]">
     <div className=" flex justify-center items-center gap-[20px]">
     <label htmlFor="name">Name:</label>
       <input className="text-black border-2 border-black " type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
@@ -216,13 +286,13 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
       <textarea  className="text-black border-2 border-black "  id="message" name="message" value={formData.message} onChange={handleChange} required></textarea>
 
     </div>
-      <button className="border-2 p-2 rounded-lg border-black text-white bg-black" type="submit">Submit</button>
+      <button  className="border-2 p-2 rounded-lg border-black text-white bg-black" type="submit">Submit</button>
     </form>
           </div>
           
         </div>):(
-          <><div className="flex flex-col  p-4  w-[58%]  min-h-[100%]  items-center overflow-scroll">
-             <div className=" w-[80%] flex mt-3 flex-col justify-center items-center gap-[20px]  ">
+          <><div className=" mx-auto w-[80%]">
+             <div className=" w-[100%] flex mt-3 flex-col justify-center items-center gap-[20px]  ">
              <h1 className="text-3xl font-bold  "> My Projects</h1>
              <div className="flex flex-col mt-4 justify-center items-center gap-[100px]">
           {/* Replace the following with your actual project data */}
@@ -257,6 +327,7 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
       </>
       )
      }
+    </div>
    
 
 
