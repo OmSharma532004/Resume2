@@ -5,6 +5,9 @@ import img from "@/components/i.jpeg"
 import p1 from "@/components/p1.png"
 import p2 from "@/components/p2.png"
 import Image from 'next/image'
+import Fresco from "@/components/FrescoGuard.png"
+import Razorpay from "@/components/razorpay.png"
+import Form from "@/components/FormCrafter.png"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { AiOutlineUser } from "react-icons/ai";
@@ -19,7 +22,7 @@ import { useEffect, useState } from 'react';
 import { FaGraduationCap } from "react-icons/fa";
 import Link from "next/link"
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
-import myLocalPdf from "../components/resume3.png"
+import myLocalPdf from "../components/OS.jpg"
 import  toBuffer  from 'next/image';
 interface CircularProgressProps {
   value: number;
@@ -80,7 +83,7 @@ export default function Home() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
+    message:' '
   });
   
 
@@ -307,6 +310,25 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
 </p>
             </div>
           </div></Link>
+          <Link href={"survey-form2-seven.vercel.app"}> <div className={`project-photo shadow-lg shadow-white `}>
+          <Image
+      src={Form}
+      alt=""/>
+       <div className={`project-description `}>
+          <h1>Form Crafter</h1>
+              <p> Type Form (Google Form)
+</p>
+            </div>
+          </div></Link> <Link href={"#"}> <div className={`project-photo shadow-lg shadow-white `}>
+          <Image
+      src={Fresco}
+      alt=""/>
+       <div className={`project-description `}>
+          <h1>Fresco Guard</h1>
+              <p> Warehouse Management System Spoilage Detector(ML Based)
+</p>
+            </div>
+          </div></Link>
          <Link href={"https://ds-fincorp.vercel.app/"}> <div className={`project-photo shadow-lg shadow-white `}>
           <Image
       src={p2}
@@ -317,6 +339,17 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
 </p>
             </div>
           </div></Link>
+          <Link href={"razorpay-clone-tailwind-kappa.vercel.app"}> <div className={`project-photo shadow-lg shadow-white `}>
+          <Image
+      src={Razorpay}
+      alt=""/>
+       <div className={`project-description `}>
+          <h1>Razorpay Clone</h1>
+              <p> Clone of Razorpay using Tailwind CSS 
+</p>
+            </div>
+          </div></Link>
+         
         
         </div>
 
