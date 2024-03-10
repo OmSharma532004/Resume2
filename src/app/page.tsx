@@ -310,7 +310,7 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
 </p>
             </div>
           </div></Link>
-          <Link href={"survey-form2-seven.vercel.app"}> <div className={`project-photo shadow-lg shadow-white `}>
+          <Link href={"https://survey-form2-seven.vercel.app"}> <div className={`project-photo shadow-lg shadow-white `}>
           <Image
       src={Form}
       alt=""/>
@@ -339,7 +339,7 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
 </p>
             </div>
           </div></Link>
-          <Link href={"razorpay-clone-tailwind-kappa.vercel.app"}> <div className={`project-photo shadow-lg shadow-white `}>
+          <Link href={"https://razorpay-clone-tailwind-kappa.vercel.app"}> <div className={`project-photo shadow-lg shadow-white `}>
           <Image
       src={Razorpay}
       alt=""/>
