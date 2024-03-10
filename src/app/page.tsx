@@ -22,7 +22,7 @@ import { useEffect, useState } from 'react';
 import { FaGraduationCap } from "react-icons/fa";
 import Link from "next/link"
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
-import myLocalPdf from "../components/OS.jpg"
+import myLocalPdf from "../components/FinalResume3.1.jpeg"
 import  toBuffer  from 'next/image';
 interface CircularProgressProps {
   value: number;
