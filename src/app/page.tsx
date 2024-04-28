@@ -22,7 +22,7 @@ import { useEffect, useState } from 'react';
 import { FaGraduationCap } from "react-icons/fa";
 import Link from "next/link"
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
-import myLocalPdf from "../components/FinalResume3.1.jpeg"
+import myLocalPdf from "../components/OmSharmaResume.png"
 import  toBuffer  from 'next/image';
 interface CircularProgressProps {
   value: number;
@@ -250,6 +250,23 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
 
 </div>
       </div>
+      {/* add Experince Section */}
+
+      <div className="w-[90%] flex flex-col flex-wrap  justify-center items-center mt-[50px] gap-[20px] ">
+      <h1 className="text-2xl font-semibold flex justify-center items-center gap-2"> Experience <FaGraduationCap /></h1>
+      <div className=" flex-row flex flex-wrap justify-around items-center w-[100%]">
+        {/* //Engineer Intern at Pinnacle .bix since april 2024 tio present add this */}
+        <div className="w-[80%] flex flex-col items-center justify-center border-2  p-2 border-gray-600 ">
+          <h1 className="  font-bold">ENGINEER INTERN</h1>
+          <p> Pinnacle.Biz</p>
+          <p>April 2024-Present</p>
+          </div>
+
+      
+
+        
+      </div>
+      </div>
     
       <div className="w-[90%] flex flex-col flex-wrap  justify-center items-center mt-[50px] gap-[20px] ">
       <h1 className="text-2xl font-semibold flex justify-center items-center gap-2"> Education <FaGraduationCap /></h1>
@@ -266,7 +283,9 @@ Stack and Microsoft SQL Server. Able to effectively self-manage during independe
         </div>
       </div>
       </div>
+      
      </div>
+
       
       </>):(
       <>
